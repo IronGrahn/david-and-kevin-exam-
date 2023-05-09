@@ -7,9 +7,20 @@ public class PatientScript : MonoBehaviour
     public int queueIndex;
     public Vector3 queuePos;
 
+    /// <summary>
+    /// Is set to true when they're leaving
+    /// </summary>
     public bool leave;
 
+    /// <summary>
+    /// Displays this patient's current priority.
+    /// </summary>
     public int priority;
+
+    /// <summary>
+    /// Counts the number of times this patient has been passed. 
+    /// </summary>
+    int count;
 
     // Start is called before the first frame update
     void Start()
@@ -20,8 +31,9 @@ public class PatientScript : MonoBehaviour
     public void Created(int priority)
     {
         this.priority = priority;
-        MeshRenderer r = GetComponent<MeshRenderer>();
-        
+        count = 0;
+        MeshRenderer r = GetComponent<MeshRenderer>();        
+
         switch (priority)
         {
             case 1:
@@ -73,7 +85,17 @@ public class PatientScript : MonoBehaviour
 
     public void UpdateIndex(int newIndex)
     {
+        if (newIndex > queueIndex && queueIndex!=0)
+        {
+            count++;
+            if (count >= 4)
+            {
+                priority++;
+                count = 0;
+            }
+        }
+
         queueIndex = newIndex;
-        queuePos = new Vector3(queueIndex -10 , 0, 0);
+        queuePos = new Vector3(queueIndex - 10 , 0, 0);
     }
 }

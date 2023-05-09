@@ -14,10 +14,24 @@ public class QueueManager : MonoBehaviour
         SetQueuePos();
     }
 
+    public float minTime, maxTime;
+    float timer;
+
     // Update is called once per frame
     void Update()
     {
-        //tar bort en patient manuellt
+
+        timer -= Time.fixedDeltaTime;
+
+        if (timer <= 0)
+        {
+            if (patients.Count != 0)
+            {
+                timer = Random.Range(minTime, maxTime);
+                RemovePatient();
+            }
+        }
+        
         if (Input.GetKeyDown(KeyCode.Space))
         {
             if (patients.Count == 0)
@@ -74,6 +88,7 @@ public class QueueManager : MonoBehaviour
         GameObject newPatient = Instantiate(Prefab);
         PatientScript script = newPatient.GetComponent<PatientScript>();
         script.Created(priority);
+
 
         if (patients.Count == 0)
         {

@@ -1193,6 +1193,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   patients: []
   Prefab: {fileID: 5410656254867695268, guid: 237c6b15618cd924e93f4e0c93fbb1d0, type: 3}
+  minTime: 2
+  maxTime: 5
 --- !u!4 &1230010396
 Transform:
   m_ObjectHideFlags: 0
