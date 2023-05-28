@@ -6,19 +6,24 @@ public class PatientScript : MonoBehaviour
 {
     public int queueIndex;
     public Vector3 queuePos;
-
     public bool leave;
-
     public int priority;
+
+    public QueueManager queueManager;
+    public float currentTime;
+    public float totalTime;
+    public bool removed;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        currentTime = 0f;
+        removed = false;
     }
 
-    public void Created(int priority)
+    public void Created(int priority, float totalTime)
     {
+        this.totalTime = totalTime;
         this.priority = priority;
         MeshRenderer r = GetComponent<MeshRenderer>();
         
@@ -46,6 +51,18 @@ public class PatientScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (currentTime < totalTime)
+        {
+            currentTime += Time.deltaTime;
+            Debug.Log("Priority: " +priority + "Current time: " + currentTime + " Queue Index: " + queueIndex);
+        }
+        else if(!removed)
+        {
+            GameObject foundObject = GameObject.Find("QueueManager");
+            QueueManager queueManager = foundObject.GetComponentInChildren<QueueManager>();
+            queueManager.RemovePatientAtPos(queueIndex);
+            removed = true;
+        }
 
         if (leave)
         {

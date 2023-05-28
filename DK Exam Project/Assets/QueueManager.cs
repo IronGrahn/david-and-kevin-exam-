@@ -5,7 +5,6 @@ using UnityEngine;
 public class QueueManager : MonoBehaviour
 {
     public List<GameObject> patients;
-
     public GameObject Prefab;
 
     // Start is called before the first frame update
@@ -26,20 +25,19 @@ public class QueueManager : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            SpawnAPatient(1);
+            SpawnAPatient(1,100f);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            SpawnAPatient(2);
+            SpawnAPatient(2,100f);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            SpawnAPatient(3);
-
+            SpawnAPatient(3, 100f);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha4))
         {
-            SpawnAPatient(4);
+            SpawnAPatient(4, 100f);
         }
     }
 
@@ -48,9 +46,16 @@ public class QueueManager : MonoBehaviour
     /// </summary>
     public void RemovePatient()
     {
-        PatientScript script = patients[0].GetComponent<PatientScript>();
+        PatientScript script = patients[3].GetComponent<PatientScript>();
         script.leave = true;
-        patients.RemoveAt(0);
+        patients.RemoveAt(3);
+        SetQueuePos();
+    }
+    public void RemovePatientAtPos(int pos)
+    {
+        PatientScript script = patients[pos].GetComponent<PatientScript>();
+        script.leave = true;
+        patients.RemoveAt(pos);
         SetQueuePos();
     }
 
@@ -58,9 +63,9 @@ public class QueueManager : MonoBehaviour
     /// Kallas när en patient ska läggas till!
     /// </summary>
     /// <param name="priority"></param>
-    public void SpawnAPatient(int priority)
+    public void SpawnAPatient(int priority, float totalTime)
     {
-        NewPatient(priority);
+        NewPatient(priority, totalTime);
         SetQueuePos();
     }
 
@@ -68,12 +73,12 @@ public class QueueManager : MonoBehaviour
     /// Addar en ny patient med en given priority
     /// </summary>
     /// <param name="priority"></param>
-    public void NewPatient(int priority)
+    public void NewPatient(int priority, float totalTime)
     {
         //Object prefab = Resources.Load("Assets/Prefabs/Patient");
         GameObject newPatient = Instantiate(Prefab);
         PatientScript script = newPatient.GetComponent<PatientScript>();
-        script.Created(priority);
+        script.Created(priority, totalTime);
 
         if (patients.Count == 0)
         {
