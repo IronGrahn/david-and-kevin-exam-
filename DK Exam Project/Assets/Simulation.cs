@@ -24,6 +24,12 @@ public class Simulation : MonoBehaviour
     public int group3Chance = 21; // 25% chance for Group 3
     public int group4Chance = 34; // 25% chance for Group 4
 
+    public Material red;
+    public Material yellow;
+    public Material blue;
+    public Material green; 
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -79,31 +85,30 @@ public class Simulation : MonoBehaviour
 
         if (randomValue <= group1Chance && objectsSpawned < 25) // 30% chance for Group 1, spawn 25 objects
         {
-            queueManager.SpawnAPatient(1,GetTotalTime(1));
+            queueManager.SpawnAPatient(1,GetTotalTime(1),green);
             Debug.Log("Spawning Patient Priority:  1");
             return true;
         }
         else if (randomValue <= group1Chance + group2Chance && objectsSpawned < 50) // 20% chance for Group 2, spawn 25 objects
         {
-            queueManager.SpawnAPatient(2, GetTotalTime(2));
+            queueManager.SpawnAPatient(2, GetTotalTime(2),blue);
             Debug.Log("Spawning Patient Priority:  2");
             return true;
         }
         else if (randomValue <= group1Chance + group2Chance + group3Chance && objectsSpawned < 75) // 25% chance for Group 3, spawn 25 objects
         {
-            queueManager.SpawnAPatient(3, GetTotalTime(3));
+            queueManager.SpawnAPatient(3, GetTotalTime(3),yellow);
             Debug.Log("Spawning Patient Priority:  3");
             return true;
         }
         else if (randomValue <= group1Chance + group2Chance + group3Chance + group4Chance && objectsSpawned < 100) // 25% chance for Group 4, spawn 25 objects
         {
-            queueManager.SpawnAPatient(4, GetTotalTime(4));
+            queueManager.SpawnAPatient(4, GetTotalTime(4),red);
             Debug.Log("Spawning Patient Priority:  4");
             return true;
         }
         return false;
     }
-
     public float GetTotalTime(int priority)
     {
         float time = 100f;
@@ -114,8 +119,3 @@ public class Simulation : MonoBehaviour
         return time;
     }
 }
-
-
-
-
-

@@ -5,8 +5,10 @@ using UnityEngine;
 public class QueueManager : MonoBehaviour
 {
     public List<GameObject> patients;
-    public GameObject Prefab;
+    public List<GameObject> patientsPrefab;
 
+    public GameObject Prefab;
+    public Material standardMaterial;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,19 +27,19 @@ public class QueueManager : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            SpawnAPatient(1,100f);
+            SpawnAPatient(1,100f, standardMaterial);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            SpawnAPatient(2,100f);
+            SpawnAPatient(2,100f,standardMaterial);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            SpawnAPatient(3, 100f);
+            SpawnAPatient(3, 100f, standardMaterial);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha4))
         {
-            SpawnAPatient(4, 100f);
+            SpawnAPatient(4, 100f, standardMaterial);
         }
     }
 
@@ -63,9 +65,9 @@ public class QueueManager : MonoBehaviour
     /// Kallas när en patient ska läggas till!
     /// </summary>
     /// <param name="priority"></param>
-    public void SpawnAPatient(int priority, float totalTime)
+    public void SpawnAPatient(int priority, float totalTime, Material material)
     {
-        NewPatient(priority, totalTime);
+        NewPatient(priority, totalTime, material);
         SetQueuePos();
     }
 
@@ -73,12 +75,17 @@ public class QueueManager : MonoBehaviour
     /// Addar en ny patient med en given priority
     /// </summary>
     /// <param name="priority"></param>
-    public void NewPatient(int priority, float totalTime)
+    public void NewPatient(int priority, float totalTime, Material material)
     {
         //Object prefab = Resources.Load("Assets/Prefabs/Patient");
-        GameObject newPatient = Instantiate(Prefab);
+
+        // Choose a random prefab (animal) from the patients prefab list
+        int randomIndex = Random.Range(0, patientsPrefab.Count);
+        GameObject newPatient = Instantiate(patientsPrefab[randomIndex]);
+
+
         PatientScript script = newPatient.GetComponent<PatientScript>();
-        script.Created(priority, totalTime);
+        script.Created(priority, totalTime,material);
 
         if (patients.Count == 0)
         {

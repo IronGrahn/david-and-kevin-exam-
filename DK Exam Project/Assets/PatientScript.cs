@@ -21,12 +21,23 @@ public class PatientScript : MonoBehaviour
         removed = false;
     }
 
-    public void Created(int priority, float totalTime)
+    public void Created(int priority, float totalTime, Material material)
     {
         this.totalTime = totalTime;
         this.priority = priority;
         MeshRenderer r = GetComponent<MeshRenderer>();
-        
+
+        //Add the colour of priority (Automated from Simulation, "material variable")
+        Transform childTransform = gameObject.GetComponentInChildren<Transform>().Find("Mesh");
+        if (childTransform != null)
+        {
+            SkinnedMeshRenderer skinnedMeshRenderer = childTransform.GetComponent<SkinnedMeshRenderer>();
+            if (skinnedMeshRenderer != null)
+            {
+                skinnedMeshRenderer.material = material;
+            }
+        }
+        /*
         switch (priority)
         {
             case 1:
@@ -46,6 +57,8 @@ public class PatientScript : MonoBehaviour
 
                 break;
         }
+        */
+
     }
 
     // Update is called once per frame
