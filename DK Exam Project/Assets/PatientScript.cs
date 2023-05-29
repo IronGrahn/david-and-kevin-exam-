@@ -21,36 +21,50 @@ public class PatientScript : MonoBehaviour
         removed = false;
     }
 
-    public void Created(int priority, float totalTime)
+    public void Created(int priority, float totalTime, Material material)
     {
         this.totalTime = totalTime;
         this.priority = priority;
-        MeshRenderer r = GetComponent<MeshRenderer>();
-        
-        switch (priority)
+
+        Transform childMesh = gameObject.transform.Find("Mesh_LOD0");
+        GameObject childObjectMesh = childMesh.gameObject;
+        Renderer childRenderer = childMesh.GetComponent<Renderer>();
+        if (childRenderer != null)
         {
-            case 1:
-                r.material.color = Color.cyan;
-
-                break;
-            case 2:
-                r.material.color = Color.green;
-
-                break;
-            case 3:
-                r.material.color = Color.yellow;
-
-                break;
-            case 4:
-                r.material.color = Color.red;
-
-                break;
+            childRenderer.material = material;
         }
+
+        //  gameObject.transform.rotation = Quaternion.Euler(0, 130, 0);
+
+        /*
+         MeshRenderer r = GetComponent<MeshRenderer>();
+
+         switch (priority)
+         {
+             case 1:
+                 r.material.color = Color.cyan;
+
+                 break;
+             case 2:
+                 r.material.color = Color.green;
+
+                 break;
+             case 3:
+                 r.material.color = Color.yellow;
+
+                 break;
+             case 4:
+                 r.material.color = Color.red;
+
+                 break;
+         }
+         */
     }
 
     // Update is called once per frame
     void Update()
     {
+
         if (currentTime < totalTime)
         {
             currentTime += Time.deltaTime;

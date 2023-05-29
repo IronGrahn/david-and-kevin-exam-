@@ -6,6 +6,9 @@ public class QueueManager : MonoBehaviour
 {
     public List<GameObject> patients;
     public GameObject Prefab;
+    public List<GameObject> patientPrefabs;
+    public AdvancedCamera advancedCamera;
+
 
     // Start is called before the first frame update
     void Start()
@@ -16,6 +19,7 @@ public class QueueManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        /*
         //tar bort en patient manuellt
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -39,6 +43,7 @@ public class QueueManager : MonoBehaviour
         {
             SpawnAPatient(4, 100f);
         }
+        */
     }
 
     /// <summary>
@@ -63,9 +68,9 @@ public class QueueManager : MonoBehaviour
     /// Kallas när en patient ska läggas till!
     /// </summary>
     /// <param name="priority"></param>
-    public void SpawnAPatient(int priority, float totalTime)
+    public void SpawnAPatient(int priority, float totalTime, Material material)
     {
-        NewPatient(priority, totalTime);
+        NewPatient(priority, totalTime, material);
         SetQueuePos();
     }
 
@@ -73,12 +78,17 @@ public class QueueManager : MonoBehaviour
     /// Addar en ny patient med en given priority
     /// </summary>
     /// <param name="priority"></param>
-    public void NewPatient(int priority, float totalTime)
+    public void NewPatient(int priority, float totalTime, Material material)
     {
-        //Object prefab = Resources.Load("Assets/Prefabs/Patient");
-        GameObject newPatient = Instantiate(Prefab);
+
+        //Spawn Random Character
+        // GameObject newPatient = Instantiate(Prefab); //OLD
+        int randomIndex = Random.Range(0, patientPrefabs.Count);
+        GameObject newPatient = Instantiate(patientPrefabs[randomIndex], gameObject.transform);
+
+        //Get the Patient Script
         PatientScript script = newPatient.GetComponent<PatientScript>();
-        script.Created(priority, totalTime);
+        script.Created(priority, totalTime, material);
 
         if (patients.Count == 0)
         {
@@ -130,5 +140,14 @@ public class QueueManager : MonoBehaviour
             PatientScript script = patients[i].GetComponent<PatientScript>();
             script.UpdateIndex(i);
         }
+    }
+
+    float CalculateFieldOfView(Bounds bounds, float aspectRatio)
+    {
+        float objectSize = bounds.extents.magnitude;
+        float distance = objectSize / Mathf.Tan(Mathf.Deg2Rad * Camera.main.fieldOfView * 0.5f);
+        float boundsWidth = bounds.size.x / aspectRatio;
+        float fieldOfView = Mathf.Rad2Deg * 2f * Mathf.Atan(boundsWidth / distance);
+        return fieldOfView;
     }
 }
