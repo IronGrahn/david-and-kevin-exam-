@@ -83,12 +83,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   queueIndex: 0
-  queuePos: {x: 0, y: 0, z: 0}
+  queuePos: {x: -10, y: 0, z: 0}
   leave: 0
-  priority: 0
+  priority: 3
   queueManager: {fileID: 0}
   currentTime: 0
-  totalTime: 0
+  totalTime: 383
   removed: 0
 --- !u!1 &353800058613645779
 GameObject:
@@ -368,7 +368,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 797669773fa10544383b7822df49f5d9, type: 2}
+  - {fileID: 2100000, guid: 559a2c287ac365a42a206bcd24aec4be, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

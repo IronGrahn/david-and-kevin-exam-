@@ -20,8 +20,10 @@ public class AdvancedCamera : MonoBehaviour
 
     private void Update()
     {
+
         CalculateBounds();
         AdjustCamera();
+
     }
 
     void CalculateBounds()
