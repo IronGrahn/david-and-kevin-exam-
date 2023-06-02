@@ -1,0 +1,111 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &939003471649941784
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 939003471649941790}
+  - component: {fileID: 939003471649941785}
+  - component: {fileID: 939003471649941791}
+  - component: {fileID: 939003471649941788}
+  m_Layer: 0
+  m_Name: QueueManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &939003471649941790
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 939003471649941784}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.4942987, y: -1.4207592, z: -0.92006683}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &939003471649941785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 939003471649941784}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3e69662587fe824080d4a12b00affb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  patients: []
+  Prefab: {fileID: 6447479664124387140, guid: 22fb497f5f559f64495590fa8c297f28, type: 3}
+  patientPrefabs:
+  - {fileID: 3443999127150074268, guid: 24a875d736c5a3847b70a9f83bc56e1a, type: 3}
+  - {fileID: 7423538165256316451, guid: 91a4f0f34294be14fa741fc1d9973a18, type: 3}
+  - {fileID: 6060776495185037727, guid: 837649b81b6f11a4a9989c54ee6d3907, type: 3}
+  - {fileID: 60853353599306803, guid: 39498c679d0f8bb4685ef3845c0087be, type: 3}
+  - {fileID: 6447479664124387140, guid: 22fb497f5f559f64495590fa8c297f28, type: 3}
+  - {fileID: 1945507439233847505, guid: 0526060e25a1a964d9b42d7e1cb25e53, type: 3}
+  advancedCamera: {fileID: 0}
+--- !u!114 &939003471649941791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 939003471649941784}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a26031329331bbb44afbb39d66457528, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  queueManager: {fileID: 939003471649941785}
+  simulationRunning: 0
+  currentTime: 0
+  totalTime: 1440
+  minSpawnDelay: 5
+  maxSpawnDelay: 15
+  group1Chance: 23
+  group2Chance: 22
+  group3Chance: 21
+  group4Chance: 34
+  objectsSpawned: 0
+  objectTotalCount: 130
+  group1Spawn: 0
+  group2Spawn: 0
+  group3Spawn: 0
+  group4Spawn: 0
+  red: {fileID: 2100000, guid: 5416ddb1297665c49a54f682c887fb9d, type: 2}
+  yellow: {fileID: 2100000, guid: b2bb14ec29395464d9578b5d6b40fda1, type: 2}
+  blue: {fileID: 2100000, guid: 559a2c287ac365a42a206bcd24aec4be, type: 2}
+  green: {fileID: 2100000, guid: ab83a229ceb442c4985c8a7190a17b17, type: 2}
+--- !u!114 &939003471649941788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 939003471649941784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21d99af5f0c620a4398399c5e92ecc85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentObject: {fileID: 939003471649941790}
+  cameraDistance: 10
+  minFOV: 2
+  maxFOV: 10
+  padding: 3
+  mainCamera: {fileID: 0}
+  bounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
