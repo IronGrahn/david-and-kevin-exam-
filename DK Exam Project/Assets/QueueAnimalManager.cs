@@ -8,6 +8,8 @@ public class QueueAnimalManager : MonoBehaviour
     public List<GameObject> patients;
     public List<GameObject> leavingPatients;
     public List<GameObject> patientPrefabs;
+    public GameObject animalSimulator;
+    public float speed;
 
     [Header("Camera Management")]
     public AdvancedCamera advancedCamera;
@@ -30,6 +32,7 @@ public class QueueAnimalManager : MonoBehaviour
 
     void Start()
     {
+        speed = animalSimulator.GetComponent<SimulationAnimal>().speed;
         oldRotate = false;
         initialLeftRotation = leftDoor.transform.rotation;
         initialRightRotation = rightDoor.transform.rotation;
@@ -39,7 +42,10 @@ public class QueueAnimalManager : MonoBehaviour
     }
 
     void Update()
-    {
+    { 
+
+      speed = animalSimulator.GetComponent<SimulationAnimal>().speed;
+
         for (int i = 0; i < leavingPatients.Count; i++)
         {
             if (leavingPatients[i] != null && leavingPatients[i].GetComponent<PatientAnimalScript>().leave)
@@ -55,9 +61,8 @@ public class QueueAnimalManager : MonoBehaviour
         {
             if (oldRotate) oldRotate= false;
             else if (!oldRotate) oldRotate = true;
-            t = 0; 
+            t = 0f; 
         }
-
 
         if (toRotate)
         {
@@ -78,23 +83,12 @@ public class QueueAnimalManager : MonoBehaviour
     /// <summary>
     /// Tar bort den första i kön!
     /// </summary>
-    public void RemovePatient()
-    {
-        PatientAnimalScript script = patients[3].GetComponent<PatientAnimalScript>();
-        script.leave = true;
-        patients.RemoveAt(3);
-        SetQueuePos();
-    }
     public void RemovePatientAtPos(int pos)
     {
         PatientAnimalScript script = patients[pos].GetComponent<PatientAnimalScript>();
         script.leave = true;
         leavingPatients.Add(patients[pos]);
         patients.RemoveAt(pos);
-
-        //Add to leaving list
-
-
 
         SetQueuePos();
     }

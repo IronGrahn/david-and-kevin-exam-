@@ -13,12 +13,15 @@ public class PatientScript : MonoBehaviour
     public float currentTime;
     public float totalTime;
     public bool removed;
+    public float moveSpeed; 
 
     // Start is called before the first frame update
     void Start()
     {
         currentTime = 0f;
         removed = false;
+        GameObject foundObject = GameObject.Find("QueueManager");
+        queueManager = foundObject.GetComponentInChildren<QueueManager>();
     }
 
     public void Created(int priority, float totalTime, Material material)
@@ -26,54 +29,25 @@ public class PatientScript : MonoBehaviour
         this.totalTime = totalTime;
         this.priority = priority;
 
-        Transform childMesh = gameObject.transform.Find("Mesh_LOD0");
-        GameObject childObjectMesh = childMesh.gameObject;
+        Transform childMesh = gameObject.transform;
         Renderer childRenderer = childMesh.GetComponent<Renderer>();
         if (childRenderer != null)
         {
             childRenderer.material = material;
         }
-
-        //  gameObject.transform.rotation = Quaternion.Euler(0, 130, 0);
-
-        /*
-         MeshRenderer r = GetComponent<MeshRenderer>();
-
-         switch (priority)
-         {
-             case 1:
-                 r.material.color = Color.cyan;
-
-                 break;
-             case 2:
-                 r.material.color = Color.green;
-
-                 break;
-             case 3:
-                 r.material.color = Color.yellow;
-
-                 break;
-             case 4:
-                 r.material.color = Color.red;
-
-                 break;
-         }
-         */
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        moveSpeed = queueManager.speed;
         if (currentTime < totalTime)
         {
-            currentTime += Time.deltaTime;
+            currentTime += Time.deltaTime * queueManager.speed;
             Debug.Log("Priority: " +priority + "Current time: " + currentTime + " Queue Index: " + queueIndex);
         }
         else if(!removed)
         {
-            GameObject foundObject = GameObject.Find("QueueManager");
-            QueueManager queueManager = foundObject.GetComponentInChildren<QueueManager>();
             queueManager.RemovePatientAtPos(queueIndex);
             removed = true;
         }

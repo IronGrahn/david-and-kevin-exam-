@@ -29,13 +29,11 @@ public class PatientAnimalScript : MonoBehaviour
     void Start()
     {
         currentTime = 0f;
-        moveSpeed = 1f; 
         removed = false;
+        moveSpeed = 1f; 
         isRotated = false;
 
-
         GameObject foundObject = GameObject.Find("QueueAnimalManager");
-
         queueAnimalManager = foundObject.GetComponentInChildren<QueueAnimalManager>();
     }
     public void Created(int priority, float totalTime, Material material)
@@ -44,7 +42,6 @@ public class PatientAnimalScript : MonoBehaviour
         this.priority = priority;
 
         Transform childMesh = gameObject.transform.Find("Mesh_LOD0");
-        GameObject childObjectMesh = childMesh.gameObject;
         Renderer childRenderer = childMesh.GetComponent<Renderer>();
         if (childRenderer != null)
         {
@@ -54,9 +51,11 @@ public class PatientAnimalScript : MonoBehaviour
 
     void Update()
     {
+        moveSpeed = queueAnimalManager.speed;
+
         if (currentTime < totalTime)
         {
-            currentTime += Time.deltaTime;
+            currentTime += Time.deltaTime * moveSpeed;
      //       Debug.Log("Priority: " + priority + "Current time: " + currentTime + " Queue Index: " + queueIndex);
         }
         else if (!removed)

@@ -7,10 +7,11 @@ public class Simulation : MonoBehaviour
 
     [Header("Simulator Settings")]
     public QueueManager queueManager;
-   public bool simulationRunning = false; // Flag to indicate if the game is running
+    public bool simulationRunning = false; // Flag to indicate if the game is running
    
     [Header("Time Settings")]
     public float currentTime = 0f; // Current elapsed time within the interval
+    public float speed = 1f;
     public float totalTime = 1440f; // The total duration of the interval in seconds : 1440f = 60 x 24 = 1h * 24 
     public float minSpawnDelay = 5f; // Minimum delay before spawning an object
     public float maxSpawnDelay = 30f; // Maximum delay before spawning an object
@@ -56,8 +57,6 @@ public class Simulation : MonoBehaviour
     {
         if (simulationRunning)
         {
-
-
             if(currentTime >= totalTime)
             {
                 simulationRunning = false;
@@ -67,7 +66,7 @@ public class Simulation : MonoBehaviour
 
         if (currentTime < totalTime && objectsSpawned < objectTotalCount && simulationRunning)
         {
-            currentTime += Time.deltaTime;
+            currentTime += Time.deltaTime * speed;
             Debug.Log("Current time: " +currentTime);
             Debug.Log("Total time:" + totalTime);
 
